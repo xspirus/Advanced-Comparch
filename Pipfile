@@ -9,6 +9,9 @@ verify_ssl = true
 jupyter = "*"
 pynvim = "*"
 wget = "*"
+pandas = "*"
+numpy = "*"
+matplotlib = "*"
 
 [requires]
 python_version = "3.6"
