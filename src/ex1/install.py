@@ -8,9 +8,14 @@ from ..helper.dirs import updir
 import subprocess as sp
 
 PIN = "https://software.intel.com/sites/landingpage/pintool/downloads/pin-3.6-97554-g31f0a167d-gcc-linux.tar.gz"
-PARSEC_CORE = "http://parsec.cs.princeton.edu/download/3.0/parsec-3.0-core.tar.gz"
-PARSEC_SIM = "http://parsec.cs.princeton.edu/download/3.0/parsec-3.0-input-sim.tar.gz"
+PARSEC_CORE = (
+    "http://parsec.cs.princeton.edu/download/3.0/parsec-3.0-core.tar.gz"
+)
+PARSEC_SIM = (
+    "http://parsec.cs.princeton.edu/download/3.0/parsec-3.0-input-sim.tar.gz"
+)
 CSLAB_HELPCODE = "http://www.cslab.ece.ntua.gr/courses/advcomparch/files/askiseis/advanced-ca-Spring-2019-ask1-helpcode.tar.gz"
+
 
 def cslab_helpcode(root, pin):
     """Function to install cslab helpcode.
@@ -32,7 +37,9 @@ def cslab_helpcode(root, pin):
     """
     cslab = os.path.join(root, "CSLab")
     os.makedirs(cslab, exist_ok=True)
-    tarname = wget.download(CSLAB_HELPCODE, out=os.path.join(cslab, "ex1.tar.gz"))
+    tarname = wget.download(
+        CSLAB_HELPCODE, out=os.path.join(cslab, "ex1.tar.gz")
+    )
     tar = tarfile.open(name=tarname, mode="r:gz")
     dirname = tar.next().name
     tar.extractall(path=cslab)
@@ -89,12 +96,16 @@ def parsec(root):
     path: str
         The path pin was installed.
     """
-    tarname = wget.download(PARSEC_CORE, out=os.path.join(root, "parsec-core.tar.gz"))
+    tarname = wget.download(
+        PARSEC_CORE, out=os.path.join(root, "parsec-core.tar.gz")
+    )
     tar = tarfile.open(tarname, mode="r:gz")
     tar.extractall(path=root)
     tar.close()
     os.remove(tarname)
-    tarname = wget.download(PARSEC_SIM, out=os.path.join(root, "parsec-sim.tar.gz"))
+    tarname = wget.download(
+        PARSEC_SIM, out=os.path.join(root, "parsec-sim.tar.gz")
+    )
     tar = tarfile.open(tarname, mode="r:gz")
     dirname = tar.next().name
     tar.extractall(path=root)
@@ -165,8 +176,10 @@ def create_workspace(sims, cslab):
     cmd = ["sh", script]
     sp.run(cmd, cwd=sims)
     workspace = os.path.join(sims, "parsec_workspace")
-    shutil.copyfile(os.path.join(cslab, "cmds_simlarge.txt"),
-                    os.path.join(workspace, "cmds_simlarge.txt"))
+    shutil.copyfile(
+        os.path.join(cslab, "cmds_simlarge.txt"),
+        os.path.join(workspace, "cmds_simlarge.txt"),
+    )
 
 
 if __name__ == "__main__":
@@ -177,7 +190,9 @@ if __name__ == "__main__":
     sims = parsec(root)
     print()
     cslab_fixes(sims, cslab)
-    build_parsec(sims, 
-                 os.path.join(root, "docs", "ex1", "build.txt"),
-                 os.path.join(root, "docs", "ex1", "packages.txt"))
+    build_parsec(
+        sims,
+        os.path.join(root, "docs", "ex1", "build.txt"),
+        os.path.join(root, "docs", "ex1", "packages.txt"),
+    )
     create_workspace(sims, cslab)

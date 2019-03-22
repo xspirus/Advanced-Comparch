@@ -4,6 +4,7 @@ import os
 
 __all__ = ["updir"]
 
+
 def updir(root, dirs=1):
     path = root
     for _ in range(dirs):
