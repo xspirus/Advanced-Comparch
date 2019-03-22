@@ -14,16 +14,16 @@ venv:
 	@echo "You can now make deps"
 
 deps:
-	$(PIPENV) install --skip-lock
+	@$(PIPENV) install --skip-lock
 
 lock:
-	$(PIPENV) lock
+	@$(PIPENV) lock
 
 zip:
 	zip code.zip Makefile src/**/*.py
 
 clean:
-	$(RM) *~ *.pyc
+	@$(RM) *~ *.pyc
 
 distclean: clean
-	$(RM) -rf $(PIPENV_DIR)/
+	@$(RM) -rf $(PIPENV_DIR)/
