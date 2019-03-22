@@ -4,7 +4,7 @@
 ## Prerequisites
 * [pipenv](https://pypi.org/project/pipenv/)
 
-## Before Exerices
+## Before Exercises
 Run the following:
 ```bash
 make setup
