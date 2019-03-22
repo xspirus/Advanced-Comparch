@@ -128,7 +128,7 @@ def cslab_fixes(sims, cslab):
     """
     script = "cslab_process_parsec_benchmarks.sh"
     script = os.path.join(cslab, script)
-    cmd = ["sh", script]
+    cmd = ["bash", script]
     sp.run(cmd, cwd=sims)
 
 
@@ -173,7 +173,7 @@ def create_workspace(sims, cslab):
     """
     script = "cslab_create_parsec_workspace.sh"
     script = os.path.join(cslab, script)
-    cmd = ["sh", script]
+    cmd = ["bash", script]
     sp.run(cmd, cwd=sims)
     workspace = os.path.join(sims, "parsec_workspace")
     shutil.copyfile(
