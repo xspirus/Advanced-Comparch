@@ -1,0 +1,7 @@
+__pycache__
+*.pyc*
+
+pin*
+parsec*
+
+.venv

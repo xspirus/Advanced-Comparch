@@ -1,0 +1,3 @@
+./bin/parsecmgmt -a build -c gcc-serial -p blackscholes bodytrack
+canneal facesim ferret fluidanimate freqmine raytrace swaptions
+streamcluster

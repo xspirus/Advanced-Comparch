@@ -1,0 +1,9 @@
+make
+g++
+libx11-dev
+libxext-dev
+libxaw7
+x11proto-xext-dev
+libglu1-mesa-dev
+libxi-dev
+libxmu-dev
