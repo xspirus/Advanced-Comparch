@@ -7,7 +7,6 @@
 ## Before Exercises
 Run the following:
 ```bash
-make setup
 make deps
 ```
 
