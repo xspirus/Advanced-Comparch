@@ -192,7 +192,7 @@ if __name__ == "__main__":
     cslab_fixes(sims, cslab)
     build_parsec(
         sims,
-        os.path.join(root, "docs", "ex1", "build.txt"),
-        os.path.join(root, "docs", "ex1", "packages.txt"),
+        os.path.join(root, "data", "ex1", "build.txt"),
+        os.path.join(root, "data", "ex1", "packages.txt"),
     )
     create_workspace(sims, cslab)
