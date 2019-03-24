@@ -1,0 +1,10 @@
+blackscholes
+bodytrack
+canneal
+facesim
+ferret
+fluidanimate
+freqmine
+raytrace
+streamcluster
+swaptions

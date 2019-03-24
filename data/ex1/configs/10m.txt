@@ -1,0 +1,2 @@
+L1c,L1a,L1b,L2c,L2a,L2b,L2prf,TLBe,TLBa,TLBp
+32, 8, 64, 1024, 8, 128, 0, 64, 4, 4096
