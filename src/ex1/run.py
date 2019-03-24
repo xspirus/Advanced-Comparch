@@ -135,16 +135,20 @@ def configure_options(config):
     configs = pd.read_csv(config_file)
     outputs = configs[names[config]]
     outputs = outputs.values.tolist()
+
     def convert(x):
         new_x = []
         for x in x:
             new_x.append(f"{x:04d}")
         ret = "-".join(new_x)
         return f"{ret}.txt"
+
     outputs = list(map(convert, outputs))
     options = []
     for _, config in configs.iterrows():
-        config = map(lambda x: f"-{x[0]} {x[1]}".split(), config.to_dict().items())
+        config = map(
+            lambda x: f"-{x[0]} {x[1]}".split(), config.to_dict().items()
+        )
         config = list(it.chain(*config))
         options.append(config)
     return list(zip(outputs, options))
@@ -177,7 +181,7 @@ def run_one(option, main, results, cmd, cwd):
     main.extend(options)
     main.extend(["--"])
     main.extend(cmd)
-    sp.run(main, stdout=sp.DEVNULL, stderr=sp.DEVNULL, cwd=cwd)
+    sp.run(main, stdout=sp.DEVNULL, stderr=sp.DEVNULL, cwd=cwd, env=os.environ)
 
 
 def run(root, results, benchmarks, config, time):
@@ -207,7 +211,9 @@ def run(root, results, benchmarks, config, time):
     )
     parsec = os.path.join(root, "parsec-3.0")
     parsec_workspace = os.path.join(parsec, "parsec_workspace")
-    os.environ["LD_LIBRARY_PATH"] = os.path.join(parsec, "pkgs", "libs", "hooks", "inst", "amd64-linux.gcc-serial", "lib")
+    os.environ["LD_LIBRARY_PATH"] = os.path.join(
+        parsec, "pkgs", "libs", "hooks", "inst", "amd64-linux.gcc-serial", "lib"
+    )
     cmds = os.path.join(parsec_workspace, "cmds_simlarge.txt")
     with open(cmds, "r") as fp:
         cmds = list(map(lambda x: x.strip().split(), fp.readlines()))
@@ -218,7 +224,16 @@ def run(root, results, benchmarks, config, time):
         directory = os.path.join(results, benchmark, config)
         start = dt.time()
         with Pool() as pool:
-            pool.map(partial(run_one, main=main, results=directory, cmd=cmd, cwd=parsec_workspace), options)
+            pool.map(
+                partial(
+                    run_one,
+                    main=main,
+                    results=directory,
+                    cmd=cmd,
+                    cwd=parsec_workspace,
+                ),
+                options,
+            )
         delta = dt.time() - start
         if time:
             print(f"Benchmark {benchmark} finished in {delta:04f} seconds")
