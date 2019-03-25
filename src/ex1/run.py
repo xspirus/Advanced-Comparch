@@ -10,7 +10,8 @@ import time as dt
 from multiprocessing import Pool
 import argparse
 
-from ..helper.dirs import updir
+#  from ..helper.dirs import updir
+from helper.dirs import updir
 
 
 def parse_arguments():

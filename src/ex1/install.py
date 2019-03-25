@@ -4,7 +4,7 @@ import os
 import shutil
 import tarfile
 import wget
-from ..helper.dirs import updir
+from helper.dirs import updir
 import subprocess as sp
 
 PIN = "https://software.intel.com/sites/landingpage/pintool/downloads/pin-3.6-97554-g31f0a167d-gcc-linux.tar.gz"
