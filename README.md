@@ -8,6 +8,7 @@
 Run the following:
 ```bash
 make deps
+pipenv install -e src
 ```
 
 ## Exercise 1
