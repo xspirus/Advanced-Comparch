@@ -1,10 +1,15 @@
+# Python
 __pycache__
 *.pyc*
+*.egg-info
+.venv
 
+# Tools
 pin*
 parsec*
 
-.venv
+# CSLab code
 CSLab
 
+# Results
 results
