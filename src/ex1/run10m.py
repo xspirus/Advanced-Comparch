@@ -29,16 +29,10 @@ def parse_arguments():
         prog="run", description="Run CSLab AdvComparch Exercise 1 Benchmarks."
     )
     parser.add_argument(
-        "config",
-        help="config to run",
-        type=str,
-        choices=["L1", "L2", "TLB", "Prefetch"],
-    )
-    parser.add_argument(
         "--time", help="time each benchmark", action="store_true"
     )
     args = parser.parse_args()
-    return args.config, args.time
+    return args.time
 
 
 def preparation(root, benchmarks):
@@ -117,7 +111,7 @@ def configure_options(config):
     ----------
 
     config: str
-        {L1, L2, TLB, Prefetch, 10m}
+        10m
 
     Returns
     -------
@@ -125,25 +119,10 @@ def configure_options(config):
     options: list of tuples
         Names (for saving) and Options that will be used during pin execution.
     """
-    names = {
-        "L1": ["L1c", "L1a", "L1b"],
-        "L2": ["L2c", "L2a", "L2b"],
-        "TLB": ["TLBe", "TLBa", "TLBp"],
-        "Prefetch": ["L2prf"],
-    }
     config_file = os.path.join(root, "data", "ex1", "configs", f"{config}.txt")
     configs = pd.read_csv(config_file)
-    outputs = configs[names[config]]
-    outputs = outputs.values.tolist()
+    outputs = ["10m.txt"]
 
-    def convert(x):
-        new_x = []
-        for x in x:
-            new_x.append(f"{x:04d}")
-        ret = "-".join(new_x)
-        return f"{ret}.txt"
-
-    outputs = list(map(convert, outputs))
     options = []
     for _, config in configs.iterrows():
         config = map(
@@ -200,7 +179,7 @@ def run(root, results, benchmarks, config, time):
         Benchmarks to run.
 
     config: str
-        {L1, L2, TLB, Prefetch, 10m}
+        10m
 
     time: bool
         Time or not each benchmark.
@@ -240,11 +219,11 @@ def run(root, results, benchmarks, config, time):
 
 
 if __name__ == "__main__":
-    config, time = parse_arguments()
+    time = parse_arguments()
     path = os.path.abspath(os.path.dirname(__file__))
     root = updir(path, 2)
     benchmarks = os.path.join(root, "data", "ex1", "benchmarks.txt")
     with open(benchmarks, "r") as fp:
         benchmarks = list(map(lambda x: x.strip(), fp.readlines()))
     results = preparation(root, benchmarks)
-    run(root, results, benchmarks, config, time)
+    run(root, results, benchmarks, "10m", time)
