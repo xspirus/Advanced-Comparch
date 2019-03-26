@@ -8,7 +8,6 @@
 Run the following:
 ```bash
 make deps
-pipenv install -e src
 ```
 
 ## Exercise 1
@@ -25,3 +24,6 @@ To run L1 configuration:
 pipenv run python -m src.ex1.run L1
 ```
 Run `pipenv run python -m src.ex1.run --help` for options.
+
+### Plots
+Run `pipenv run python -m src.ex1.plot --help` to check how to make plots.
