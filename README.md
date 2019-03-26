@@ -16,6 +16,10 @@ Run the following to install pintool and parsec:
 ```bash
 pipenv run python -m src.ex1.install
 ```
+If you want to make the pintool again run:
+```bash
+pipenv run python -m make 1
+```
 To run L1 configuration:
 ```bash
 pipenv run python -m src.ex1.run L1
