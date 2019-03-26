@@ -176,7 +176,7 @@ template <class SET> class TWO_LEVEL_CACHE {
                     UINT32 l1Associativity, UINT32 l2CacheSize,
                     UINT32 l2BlockSize, UINT32 l2Associativity,
                     UINT32 l2PrefetchLines, UINT32 l1HitLatency = 1,
-                    UINT32 l2HitLatency = 10, UINT32 l2MissLatency = 150);
+                    UINT32 l2HitLatency = 20, UINT32 l2MissLatency = 200);
 
     // Stats
     CACHE_STATS L1Hits(ACCESS_TYPE accessType) const {

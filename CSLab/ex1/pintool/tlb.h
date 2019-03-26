@@ -134,7 +134,7 @@ template <class SET> class SINGLE_LEVEL_TLB {
     // constructors/destructors
     SINGLE_LEVEL_TLB(std::string name, UINT32 Entries, UINT32 PageSize,
                      UINT32 Associativity, UINT32 HitLatency = 0,
-                     UINT32 MissLatency = 50);
+                     UINT32 MissLatency = 100);
 
     // Stats
     TLB_STATS TlbHits(ACCESS_TYPE accessType) const {
