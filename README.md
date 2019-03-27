@@ -27,3 +27,6 @@ Run `pipenv run python -m src.ex1.run --help` for options.
 
 ### Plots
 Run `pipenv run python -m src.ex1.plot --help` to check how to make plots.
+
+### 10 Million Instructions
+Run `pipenv run python -m src.ex1.run10m --time`.
