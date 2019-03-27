@@ -9,6 +9,8 @@
 #define STORE_ALLOCATION STORE_ALLOCATE
 #include "cache.h"
 
+#define MILLION10 10000000
+
 /* ===================================================================== */
 /* Commandline Switches                                                  */
 /* ===================================================================== */
@@ -92,6 +94,24 @@ VOID Store(ADDRINT addr) {
 VOID count_instruction() {
     total_instructions++;
     total_cycles++;
+
+    if (total_instructions % MILLION10 == 0) {
+        outFile << "--------\n";
+        outFile << "Total Statistics\n";
+        outFile << "--------\n";
+        outFile << "Total Instructions: " << total_instructions << "\n";
+        outFile << "Total Cycles: " << total_cycles << "\n";
+        outFile << "IPC: " << (double)total_instructions / (double)total_cycles
+                << "\n";
+        outFile << "\n";
+
+        // Report Cache configuration + statistics
+        outFile << tlb->PrintDetails("");
+        outFile << tlb->StatsLong("");
+        outFile << "\n\n";
+        outFile << two_level_cache->PrintCache("");
+        outFile << two_level_cache->StatsLong("");
+    }
 }
 
 VOID Instruction(INS ins, void *v) {
