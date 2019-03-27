@@ -68,14 +68,15 @@ def find_stats(outputs: Sequence[str], config: str):
     if config == "Prefetch":
         data = "L2_prefetching"
     elif config == "TLB":
-        data = f"Data {config}"
+        data = f"Data Tlb"
     else:
         data = f"{config}-Data Cache"
     # string to find misses
     if config == "Prefetch":
         misses = "L2-Total-Misses"
     else:
-        misses = f"{config}-Total-Misses"
+        misses = f"{config.capitalize()}-Total-Misses"
+    print(misses)
     # iterate files
     results = defaultdict(list)
     for output in outputs:
