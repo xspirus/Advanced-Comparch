@@ -13,8 +13,8 @@ from typing import Sequence
 from helper.dirs import updir
 
 
-plt.rc('text', usetex=True)
-plt.rc('font', family='serif')
+plt.rc("text", usetex=True)
+plt.rc("font", family="serif")
 
 
 def parse_arguments() -> str:
@@ -26,7 +26,9 @@ def parse_arguments() -> str:
     config: str
         Configuration to run.
     """
-    parser = argparse.ArgumentParser(prog="plot", description="Plot results for all configs")
+    parser = argparse.ArgumentParser(
+        prog="plot", description="Plot results for all configs"
+    )
     parser.add_argument(
         "config",
         help="config to run",
@@ -80,7 +82,9 @@ def find_stats(outputs: Sequence[str], config: str):
         with open(output, "r") as fp:
             lines = list(map(lambda x: x.strip(), fp.readlines()))
         # find total instructions
-        total_instructions = next(filter(lambda x: x.startswith("Total Instructions"), lines))
+        total_instructions = next(
+            filter(lambda x: x.startswith("Total Instructions"), lines)
+        )
         total_instructions = int(total_instructions.split(":")[1])
         # find ipc
         ipc = next(filter(lambda x: x.startswith("IPC"), lines))
@@ -99,7 +103,9 @@ def find_stats(outputs: Sequence[str], config: str):
             size = int(lines[index + 1].split(":")[1])
             assoc = int(lines[index + 3].split(":")[1])
             block = int(lines[index + 2].split(":")[1])
-            results["LABEL"].append(axis_labels[config].format(size, assoc, block))
+            results["LABEL"].append(
+                axis_labels[config].format(size, assoc, block)
+            )
         results["IPC"].append(ipc)
         results["MPKI"].append(mpki)
     return pd.DataFrame(results)
@@ -124,27 +130,50 @@ def plot_one(dataframe, savedir: str, config: str):
         "L1": "Cache Size-Associativity-Block Size",
         "L2": "Cache Size-Associativity-Block Size",
         "TLB": "Entries-Associativity-Page Size",
-        "Prefetch": "Prefetched Blocks"
+        "Prefetch": "Prefetched Blocks",
     }
     savefile = os.path.join(savedir, f"{config}.pdf")
     x_axis_labels = dataframe["LABEL"].tolist()
     values = dataframe[["IPC", "MPKI"]]
-    ax = values.plot(marker="o", markersize=8, figsize=(19.2, 10.8), xlim=None)
-    # fix margins
-    ax.margins(0.05)
-    ax.relim()
-    ax.autoscale()
-    # beautify
-    plt.grid()
-    plt.title(rf"\bfseries IPC vs MPKI for {config}", fontsize=20)
-    plt.xlabel(rf"\bfseries {labels[config]}", fontsize=18)
-    plt.xticks(np.arange(len(x_axis_labels)), x_axis_labels, fontsize=16, rotation=45)
+    fig = plt.figure(figsize=(19.2, 10.8))
     plt.yticks(fontsize=16)
-    plt.legend(fontsize=16)
+    ax1 = plt.gca()
+    ax2 = ax1.twinx()
+    ax1 = values.plot(
+        ax=ax1, y="IPC", marker="o", markersize=8, color="red", legend=False
+    )
+    ax2 = values.plot(
+        ax=ax2, y="MPKI", marker="o", markersize=8, color="blue", legend=False
+    )
+    # Beautify ax1
+    ax1.margins(x=0.05, y=0.1)
+    ax1.relim()
+    ax1.autoscale()
+    ax1.set_ylabel(r"\bfseries IPC", fontsize=18)
+    ax1.xaxis.set_ticks(np.arange(0, len(x_axis_labels), 1))
+    ax1.set_xticklabels(x_axis_labels, rotation=45, fontsize=16)
+    ax1.set_xlabel(rf"\bfseries {labels[config]}", fontsize=18)
+    ax1.grid(True)
+    # Beautify ax1
+    ax2.margins(x=0.05, y=0.1)
+    ax2.relim()
+    ax2.autoscale()
+    ax2.set_ylabel(r"\bfseries MPKI", fontsize=18)
+    ax2.xaxis.set_ticks(np.arange(0, len(x_axis_labels), 1))
+    ax2.set_xticklabels(x_axis_labels, rotation=45, fontsize=16)
+    ax2.set_xlabel(rf"\bfseries {labels[config]}", fontsize=18)
+    # beautify
+    lines = ax1.lines + ax2.lines
+    legends = [l.get_label() for l in lines]
+    plt.yticks(fontsize=16)
+    plt.title(rf"\bfseries IPC vs MPKI for {config}", fontsize=20)
+    ax1.legend(lines, legends, loc=0, fontsize=16)
     plt.savefig(savefile, bbox_inches="tight")
 
 
-def plot(root: str, results: str, plots: str, benchmarks: Sequence[str], config: str):
+def plot(
+    root: str, results: str, plots: str, benchmarks: Sequence[str], config: str
+):
     """Function to plot results for specific configuration.
 
     Parameters
