@@ -14,7 +14,9 @@ def parse_arguments():
     exercise: str
         Name of exercise.
     """
-    parser = argparse.ArgumentParser(prog="make", description="Makefile like helper")
+    parser = argparse.ArgumentParser(
+        prog="make", description="Makefile like helper"
+    )
     parser.add_argument("exercise", type=int, choices=[1, 2, 3, 4])
     args = parser.parse_args()
     return f"ex{args.exercise}"
