@@ -43,13 +43,13 @@ def find_stats(output: str) -> pd.core.frame.DataFrame:
     totals = list(filter(lambda x: x.startswith("Total Instructions"), lines))[
         :-1
     ]
-    totals = list(map(lambda x: int(x.split()[1]), totals))
+    totals = list(map(lambda x: int(x.split(":")[1]), totals))
     for label, start in labels.items():
         temp = list(filter(lambda x: x.startswith(start), lines))[:-1]
         stats[label] = list(map(lambda x: float(x.split()[1]), temp))
-    for label, start in labels.items()[1:]:
+    for label, start in list(labels.items())[1:]:
         stats[label] = list(
-            map(lambda x, y: x / (y / 1000), zip(stats[label], totals))
+            map(lambda x: x[0] / (x[1] / 1000), zip(stats[label], totals))
         )
     return pd.DataFrame(stats)
 
