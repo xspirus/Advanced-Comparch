@@ -86,7 +86,7 @@ def plot_one(dataframe: pd.core.frame.DataFrame, savedir: str, config: str):
         # titles etc.
         plt.xticks(np.arange(len(values.tolist())), fontsize=16)
         plt.yticks(fontsize=16)
-        plt.xlabel(r"\bfseries Instructions ($\times 10^{{7}})", fontsize=18)
+        plt.xlabel(r"\bfseries Instructions ($\times 10^{{7}}$)", fontsize=18)
         plt.ylabel(rf"\bfseries {y_labels[label]}", fontsize=18)
         plt.title(rf"\bfseries {label}", fontsize=20)
         plt.savefig(savefile, bbox_inches="tight")
