@@ -30,3 +30,4 @@ Run `pipenv run python -m src.ex1.plot --help` to check how to make plots.
 
 ### 10 Million Instructions
 Run `pipenv run python -m src.ex1.run10m --time`.
+Run `pipenv run python -m src.ex1.plot10m` to plot results.
