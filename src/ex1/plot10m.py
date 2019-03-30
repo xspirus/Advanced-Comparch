@@ -96,7 +96,7 @@ def plot(
     root: str, results: str, plots: str, benchmarks: Sequence[str], config="10m"
 ):
     for benchmark in benchmarks:
-        savedir = os.path.join(plots, benchmark)
+        savedir = os.path.join(plots, benchmark, config)
         os.makedirs(savedir, exist_ok=True)
         directory = os.path.join(results, benchmark, config)
         output = sorted(os.listdir(directory))
