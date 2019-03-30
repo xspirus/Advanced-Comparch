@@ -71,7 +71,7 @@ def plot_one(dataframe: pd.core.frame.DataFrame, savedir: str, config: str):
     """
     y_labels = {"IPC": "IPC", "L1": "MPKI", "L2": "MPKI", "TLB": "MPKI"}
     for label in y_labels:
-        savefile = os.path.join(savedir, f"{config}", f"{label}.pdf")
+        savefile = os.path.join(savedir, f"{label}.pdf")
         values = dataframe[label]
         fig = plt.figure(figsize=(19.2, 10.8))
         ax = plt.gca()
