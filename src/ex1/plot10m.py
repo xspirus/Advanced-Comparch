@@ -44,6 +44,7 @@ def find_stats(output: str) -> pd.core.frame.DataFrame:
         :-1
     ]
     totals = list(map(lambda x: int(x.split(":")[1]), totals))
+    stats["TOTAL"] = totals
     for label, start in labels.items():
         temp = list(filter(lambda x: x.startswith(start), lines))[:-1]
         stats[label] = list(map(lambda x: float(x.split()[1]), temp))
@@ -71,12 +72,12 @@ def plot_one(dataframe: pd.core.frame.DataFrame, savedir: str, config: str):
     """
     y_labels = {"IPC": "IPC", "L1": "MPKI", "L2": "MPKI", "TLB": "MPKI"}
     for label in y_labels:
-        savefile = os.path.join(savedir, f"{label}.pdf")
-        values = dataframe[label]
+        savefile = os.path.join(savedir, f"{label}.png")
+        values = dataframe[["TOTAL", label]]
         fig = plt.figure(figsize=(19.2, 10.8))
         ax = plt.gca()
         ax = values.plot(
-            ax=ax, marker="o", markersize=8, color="red", legend=False
+            ax=ax, x="TOTAL", y=label, color="red", legend=False
         )
         # beautify axes
         ax.margins(0.05)
@@ -84,9 +85,9 @@ def plot_one(dataframe: pd.core.frame.DataFrame, savedir: str, config: str):
         ax.autoscale()
         plt.grid(True)
         # titles etc.
-        plt.xticks(np.arange(len(values.tolist())), fontsize=16)
+        plt.xticks(fontsize=16)
         plt.yticks(fontsize=16)
-        plt.xlabel(r"\bfseries Instructions ($\times 10^{{7}}$)", fontsize=18)
+        plt.xlabel(r"\bfseries Instructions", fontsize=18)
         plt.ylabel(rf"\bfseries {y_labels[label]}", fontsize=18)
         plt.title(rf"\bfseries {label}", fontsize=20)
         plt.savefig(savefile, bbox_inches="tight")

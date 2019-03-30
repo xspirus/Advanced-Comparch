@@ -76,7 +76,6 @@ def find_stats(outputs: Sequence[str], config: str):
         misses = "L2-Total-Misses"
     else:
         misses = f"{config.capitalize()}-Total-Misses"
-    print(misses)
     # iterate files
     results = defaultdict(list)
     for output in outputs:
@@ -133,7 +132,7 @@ def plot_one(dataframe, savedir: str, config: str):
         "TLB": "Entries-Associativity-Page Size",
         "Prefetch": "Prefetched Blocks",
     }
-    savefile = os.path.join(savedir, f"{config}.pdf")
+    savefile = os.path.join(savedir, f"{config}.png")
     x_axis_labels = dataframe["LABEL"].tolist()
     values = dataframe[["IPC", "MPKI"]]
     fig = plt.figure(figsize=(19.2, 10.8))
