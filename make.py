@@ -41,6 +41,13 @@ def make(root, exercise):
         sp.run(cmd, cwd=cwd)
         cmd = f"make PIN_ROOT={pin}".split()
         sp.run(cmd, cwd=cwd)
+    elif exercise == "ex2":
+        cwd = os.path.join(root, "CSLab", exercise, "pintool")
+        pin = os.path.join(root, "pin-3.6")
+        cmd = f"make clean PIN_ROOT={pin}".split()
+        sp.run(cmd, cwd=cwd)
+        cmd = f"make PIN_ROOT={pin}".split()
+        sp.run(cmd, cwd=cwd)
 
 
 if __name__ == "__main__":
