@@ -186,11 +186,11 @@ VOID InitPredictors() {
     GlobalHistoryTwoLevel *global4 = new GlobalHistoryTwoLevel(13, 4, 8);
     TournamentLocalNbit *tour1 =
         new TournamentLocalNbit(9, 2, 12, 4, 12, 2, 11, 4);
-    TournamentLocalNbit *tour1 =
+    TournamentLocalNbit *tour2 =
         new TournamentLocalNbit(9, 2, 13, 2, 11, 4, 11, 4);
-    TournamentGlobalNbit *tour2 =
+    TournamentGlobalNbit *tour3 =
         new TournamentGlobalNbit(9, 2, 12, 4, 12, 2, 12, 2);
-    TournamentGlobalNbit *tour2 =
+    TournamentGlobalNbit *tour4 =
         new TournamentGlobalNbit(9, 2, 13, 2, 11, 4, 12, 2);
 
     branch_predictors.push_back(staticT);
@@ -205,6 +205,8 @@ VOID InitPredictors() {
     branch_predictors.push_back(global4);
     branch_predictors.push_back(tour1);
     branch_predictors.push_back(tour2);
+    branch_predictors.push_back(tour3);
+    branch_predictors.push_back(tour4);
 
     // Pentium-M predictor
     // PentiumMBranchPredictor *pentiumPredictor = new
