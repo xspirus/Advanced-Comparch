@@ -31,3 +31,14 @@ Run `pipenv run python -m src.ex1.plot --help` to check how to make plots.
 ### 10 Million Instructions
 Run `pipenv run python -m src.ex1.run10m --time`.
 Run `pipenv run python -m src.ex1.plot10m` to plot results.
+
+## Exercise 2
+Run the following to install pintool:
+```bash
+pipenv run python -m make 2
+```
+
+Run the following to run benchmarks:
+```bash
+pipenv run python -m src.ex2.run --time
+```
