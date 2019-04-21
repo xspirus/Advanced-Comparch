@@ -189,9 +189,9 @@ VOID InitPredictors() {
     TournamentLocalNbit *tour2 =
         new TournamentLocalNbit(9, 2, 13, 2, 11, 4, 11, 4);
     TournamentGlobalNbit *tour3 =
-        new TournamentGlobalNbit(9, 2, 12, 4, 12, 2, 12, 2);
+        new TournamentGlobalNbit(9, 2, 12, 4, 13, 2, 4);
     TournamentGlobalNbit *tour4 =
-        new TournamentGlobalNbit(9, 2, 13, 2, 11, 4, 12, 2);
+        new TournamentGlobalNbit(9, 2, 13, 2, 13, 2, 4);
 
     branch_predictors.push_back(staticT);
     branch_predictors.push_back(btfnt);
